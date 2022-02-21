@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="rock-paper-scissors"
-run/main_scene="res://assets/Main.tscn"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [input]
