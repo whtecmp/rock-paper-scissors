@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/MainMenue.tres" type="DynamicFont" id=1]
+[ext_resource path="res://MainMenue.gd" type="Script" id=2]
+
+[node name="MainMenue" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="LocalMatch" type="Button" parent="."]
+margin_left = 375.0
+margin_top = 208.0
+margin_right = 625.0
+margin_bottom = 283.0
+rect_pivot_offset = Vector2( -710, -341 )
+custom_fonts/font = ExtResource( 1 )
+text = "Local Match"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuickOnlineMatch" type="Button" parent="."]
+margin_left = 375.0
+margin_top = 308.0
+margin_right = 625.0
+margin_bottom = 383.0
+rect_pivot_offset = Vector2( -710, -341 )
+custom_fonts/font = ExtResource( 1 )
+text = "Quick Match"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OnlineMatchwithFriend" type="Button" parent="."]
+margin_left = 375.0
+margin_top = 408.0
+margin_right = 625.0
+margin_bottom = 483.0
+rect_pivot_offset = Vector2( -710, -341 )
+custom_fonts/font = ExtResource( 1 )
+text = "Play w Friend"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" type="Button" parent="."]
+margin_left = 375.0
+margin_top = 508.0
+margin_right = 625.0
+margin_bottom = 583.0
+rect_pivot_offset = Vector2( -710, -341 )
+custom_fonts/font = ExtResource( 1 )
+text = "Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="LocalMatch" to="." method="_on_LocalMatch_pressed"]
