@@ -37,7 +37,7 @@ margin_right = 625.0
 margin_bottom = 483.0
 rect_pivot_offset = Vector2( -710, -341 )
 custom_fonts/font = ExtResource( 1 )
-text = "Play w Friend"
+text = "Play w/ Friend"
 __meta__ = {
 "_edit_use_anchors_": false
 }

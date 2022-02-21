@@ -19,4 +19,4 @@ func _ready():
 
 func _on_LocalMatch_pressed():
 	emit_signal("local_match")
-	$MainMenue.queue_free()
+	get_node(".").queue_free()
