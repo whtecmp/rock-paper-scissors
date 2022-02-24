@@ -8,7 +8,7 @@ script = ExtResource( 2 )
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1021.0
 margin_bottom = 600.0
-color = Color( 0.0352941, 0.12549, 0, 1 )
+color = Color( 0.0352941, 0.12549, 0.0156863, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
