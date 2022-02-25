@@ -12,6 +12,9 @@ var is_server = false;
 var game_started = false;
 var my_name;
 
+var server_ip = '127.0.0.1';
+var server_port = 8080;
+
 func _ready():
 	pass
 
@@ -37,14 +40,14 @@ func _physics_process(delta):
 
 func start_server():
 	var peer = NetworkedMultiplayerENet.new()
-	peer.create_server(8080, 2)
+	peer.create_server(server_port, 2)
 	get_tree().network_peer = peer
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	is_server = true;
 	
 func connect_to_server():
 	var peer = NetworkedMultiplayerENet.new()
-	peer.create_client('127.0.0.1', 8080)
+	peer.create_client(server_ip, server_port)
 	get_tree().network_peer = peer
 
 func restart_server(winner_index):
