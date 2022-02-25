@@ -8,16 +8,17 @@
 size = 64
 font_data = ExtResource( 3 )
 
-[node name="MainMenue" type="CanvasLayer"]
+[node name="MainMenue" type="CanvasModulate"]
 script = ExtResource( 2 )
 
-[node name="RockPaperScissors" type="Label" parent="."]
+[node name="Title" type="Label" parent="."]
 margin_left = 167.0
 margin_top = 20.023
 margin_right = 855.0
 margin_bottom = 98.023
 custom_fonts/font = SubResource( 1 )
 text = "Rock Paper Scissors"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

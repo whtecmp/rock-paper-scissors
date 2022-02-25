@@ -5,6 +5,7 @@ export(PackedScene) var RemotePlayer;
 export(PackedScene) var LittleMe;
 
 signal start_server_game;
+signal i_lost;
 var client_ids = [];
 var id_to_player = {};
 var is_server = false;
@@ -44,6 +45,19 @@ func connect_to_server():
 	var peer = NetworkedMultiplayerENet.new()
 	peer.create_client('127.0.0.1', 8080)
 	get_tree().network_peer = peer
+
+func restart_server(winner_index):
+	var i = 0;
+	for id in client_ids:
+		if winner_index == i:
+			rpc_id(id, "i_won");
+		else:
+			rpc_id(id, "i_lost");
+		get_tree().network_peer.disconnect_peer(id);
+		i += 1
+	client_ids = [];
+	id_to_player = {};
+	game_started = false;
 
 func _player_connected(id):
 	print ('S: Player ' + str(id) + ' connected!')
@@ -86,3 +100,11 @@ remote func create_remote_players(_my_name, names):
 			var remote_player = RemotePlayer.instance();
 			remote_player.set_name(name);
 			main.add_child(remote_player);
+
+remote func i_won():
+	#get_tree().network_peer.close_connection();
+	get_parent().restart("You Won! :)", 0);
+
+remote func i_lost():
+	#get_tree().network_peer.close_connection();
+	get_parent().restart("You Lost! :(", 0);

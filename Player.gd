@@ -2,12 +2,15 @@ extends KinematicBody2D
 
 export(PackedScene) var little_me_scene
 
+signal i_lost;
+
 var velocity = 400;
 var direction = Vector2(1, 0);
 onready var what_am_i = "Paper";
 var confused = false;
 var hit_points = 5; 
 var latest_action = null;
+var my_index;
 
 export var control_scheme = "Keyboard";
 var control_scheme_to_key_to_what = {
@@ -78,6 +81,7 @@ func _physics_process(delta):
 		input_form(key);
 	transform();
 	if hit_points <= 0:
+		get_parent().restart("Player " + str(3 - my_index) + " won!", 3 - my_index);
 		queue_free();
 
 func check_socket_action(key):

@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends CanvasModulate
 
 signal local_match
 signal host_server
@@ -13,19 +13,18 @@ signal quick_match
 func _ready():
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
 func _on_LocalMatch_pressed():
 	emit_signal("local_match")
-	get_node(".").queue_free()
+	visible = false;
 
 func _on_HostServer_pressed():
 	emit_signal("host_server")
-	get_node(".").queue_free()
+	visible = false;
 
 func _on_QuickOnlineMatch_pressed():
 	emit_signal("quick_match")
-	get_node(".").queue_free()
+	visible = false;
