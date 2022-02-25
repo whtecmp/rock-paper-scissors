@@ -89,14 +89,10 @@ func input_form(key):
 		what_am_i = key_to_what[key];
 		confused = true;
 		$TransformTimer.start();
-		$Canvas.modulate = Color(1, 1, 1, 0.3);
-		$Canvas/Confusion.visible = true;
+		$PlayerAnimation.confuse();
 
 func transform():
-	$Canvas/Rock.visible = false;
-	$Canvas/Paper.visible = false;
-	$Canvas/Scissor.visible = false;
-	get_node("Canvas/"+what_am_i).visible = true;
+	$PlayerAnimation.transform(what_am_i)
 
 func compare_battle(what1, what2):
 	var what_to_num = {
@@ -122,8 +118,7 @@ func get_direction(key):
 
 func _on_TransformTimer_timeout():
 	confused = false;
-	$Canvas.modulate = Color(1, 1, 1, 1);
-	$Canvas/Confusion.visible = false;
+	$PlayerAnimation.unconfuse();
 
 func _on_LittleMeTimer_timeout():
 	if not confused:

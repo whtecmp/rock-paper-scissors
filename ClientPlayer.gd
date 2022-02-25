@@ -1,7 +1,7 @@
 extends Node2D
 
 export var control_scheme = "Keyboard";
-var server;
+var networking;
 
 var control_scheme_to_key_to_action = {
 	"Keyboard": {
@@ -24,6 +24,7 @@ var control_scheme_to_key_to_action = {
 	},
 }
 var key_to_action;
+var what_am_i = "Paper";
 
 func _ready():
 	key_to_action = control_scheme_to_key_to_action[control_scheme]
@@ -31,5 +32,6 @@ func _ready():
 func _physics_process(delta):
 	for key in key_to_action:
 		if Input.is_action_just_pressed(key):
-			server.rpc_id(1, "set_action", key_to_action[key])
+			networking.rpc_id(1, "set_action", key_to_action[key])
 			return
+	$PlayerAnimation.transform(what_am_i);

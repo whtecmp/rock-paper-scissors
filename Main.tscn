@@ -4,13 +4,13 @@
 [ext_resource path="res://Main.gd" type="Script" id=2]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Block.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Server.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Networking.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ClientPlayer.tscn" type="PackedScene" id=6]
 
 [node name="Main" type="Node"]
 script = ExtResource( 2 )
 Player = ExtResource( 3 )
-Server = ExtResource( 5 )
+Networking = ExtResource( 5 )
 ClientPlayer = ExtResource( 6 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
