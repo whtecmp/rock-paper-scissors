@@ -1,6 +1,7 @@
 extends Node
 
-export(PackedScene) var Player; 
+export(PackedScene) var Player;
+export(PackedScene) var Server;
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -16,10 +17,22 @@ func add_player(control_scheme, position, layer_index):
 	player.control_scheme = control_scheme;
 	player.position = position;
 	player.set_collision_mask(layer_index);
-	get_node("../Main").add_child(player);
+	add_child(player);
 	return player;
 
 func _on_MainMenue_local_match():
 	add_player("Keyboard", Vector2(100, 100), 2);
 	add_player("Gamepad", Vector2(300, 300), 36);
 
+func _on_MainMenue_host_server():
+	$ColorRect.queue_free();
+	$Block.queue_free();
+	var server = Server.instance();
+	add_child(server);
+	add_player("Network", Vector2(100, 100), 2);
+	add_player("Network", Vector2(300, 300), 36);
+ 
+func _on_MainMenue_quick_match():
+	var peer = NetworkedMultiplayerENet.new()
+	peer.create_client('127.0.0.1', 8080)
+	get_tree().network_peer = peer

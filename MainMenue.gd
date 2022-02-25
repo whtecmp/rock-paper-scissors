@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 signal local_match
+signal host_server
+signal quick_match
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -16,7 +18,14 @@ func _ready():
 #func _process(delta):
 #	pass
 
-
 func _on_LocalMatch_pressed():
 	emit_signal("local_match")
+	get_node(".").queue_free()
+
+func _on_HostServer_pressed():
+	emit_signal("host_server")
+	get_node(".").queue_free()
+
+func _on_QuickOnlineMatch_pressed():
+	emit_signal("quick_match")
 	get_node(".").queue_free()
