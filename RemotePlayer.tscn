@@ -1,0 +1,3 @@
+[gd_scene format=2]
+
+[node name="RemotePlayer" type="Node2D"]

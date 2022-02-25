@@ -2,13 +2,12 @@ extends KinematicBody2D
 
 export(PackedScene) var little_me_scene
 
-var x
 var velocity = 400;
 var direction = Vector2(1, 0);
 onready var what_am_i = "Paper";
 var confused = false;
 var hit_points = 5; 
-var latest_action = null; 
+var latest_action = null;
 
 export var control_scheme = "Keyboard";
 var control_scheme_to_key_to_what = {
@@ -22,7 +21,7 @@ var control_scheme_to_key_to_what = {
 		"c_ad": "Paper",
 		"c_ar": "Scissor"
 	},
-	"NetworkServer": {
+	"Network": {
 		"rock": "Rock",
 		"paper": "Paper",
 		"scissor": "Scissor"
@@ -44,7 +43,7 @@ var control_scheme_to_key_to_vector = {
 		"c_up": Vector2(0, -1),
 		"c_down": Vector2(0, 1),
 	},	
-	"NetworkServer": {
+	"Network": {
 		"left": Vector2(-1, 0),
 		"right": Vector2(1, 0),
 		"up": Vector2(0, -1),
@@ -56,7 +55,7 @@ var key_to_vector;
 onready var control_scheme_to_action_checker = {
 	"Keyboard": funcref(Input, "is_action_just_pressed"),
 	"Gamepad": funcref(Input, "is_action_just_pressed"),
-	"NetworkServer": funcref(self, "check_socket_action"),
+	"Network": funcref(self, "check_socket_action"),
 }
 var check_action;
 
@@ -86,6 +85,7 @@ func check_socket_action(key):
 
 func input_form(key):
 	if not confused and check_action.call_func(key):
+		latest_action = null;
 		what_am_i = key_to_what[key];
 		confused = true;
 		$TransformTimer.start();
@@ -116,6 +116,7 @@ func compare_battle(what1, what2):
 
 func get_direction(key):
 	if check_action.call_func(key) and direction != -key_to_vector[key]:
+		latest_action = null;
 		return key_to_vector[key];
 	return direction;
 
