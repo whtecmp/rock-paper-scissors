@@ -2,11 +2,13 @@ extends KinematicBody2D
 
 export(PackedScene) var little_me_scene
 
+var x
 var velocity = 400;
 var direction = Vector2(1, 0);
 onready var what_am_i = "Paper";
 var confused = false;
-var hit_points = 5;
+var hit_points = 5; 
+var latest_action = null; 
 
 export var control_scheme = "Keyboard";
 var control_scheme_to_key_to_what = {
@@ -20,7 +22,7 @@ var control_scheme_to_key_to_what = {
 		"c_ad": "Paper",
 		"c_ar": "Scissor"
 	},
-	"Network": {
+	"NetworkServer": {
 		"rock": "Rock",
 		"paper": "Paper",
 		"scissor": "Scissor"
@@ -42,7 +44,7 @@ var control_scheme_to_key_to_vector = {
 		"c_up": Vector2(0, -1),
 		"c_down": Vector2(0, 1),
 	},	
-	"Network": {
+	"NetworkServer": {
 		"left": Vector2(-1, 0),
 		"right": Vector2(1, 0),
 		"up": Vector2(0, -1),
@@ -54,7 +56,7 @@ var key_to_vector;
 onready var control_scheme_to_action_checker = {
 	"Keyboard": funcref(Input, "is_action_just_pressed"),
 	"Gamepad": funcref(Input, "is_action_just_pressed"),
-	"Socket": funcref($Player, "check_socket_action"),
+	"NetworkServer": funcref(self, "check_socket_action"),
 }
 var check_action;
 
@@ -80,7 +82,7 @@ func _physics_process(delta):
 		queue_free();
 
 func check_socket_action(key):
-	pass
+	return latest_action == key;
 
 func input_form(key):
 	if not confused and check_action.call_func(key):
@@ -137,3 +139,6 @@ func _on_Player_area_entered(area):
 		elif battle_result == -1:
 			hit_points -= 1;
 			area.queue_free();
+
+remote func set_action(action):
+	latest_action = action
