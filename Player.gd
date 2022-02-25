@@ -2,11 +2,15 @@ extends KinematicBody2D
 
 export(PackedScene) var little_me_scene
 
+signal i_lost;
+
 var velocity = 400;
 var direction = Vector2(1, 0);
 onready var what_am_i = "Paper";
 var confused = false;
-var hit_points = 5;
+var hit_points = 5; 
+var latest_action = null;
+var my_index;
 
 export var control_scheme = "Keyboard";
 var control_scheme_to_key_to_what = {
@@ -54,7 +58,7 @@ var key_to_vector;
 onready var control_scheme_to_action_checker = {
 	"Keyboard": funcref(Input, "is_action_just_pressed"),
 	"Gamepad": funcref(Input, "is_action_just_pressed"),
-	"Socket": funcref($Player, "check_socket_action"),
+	"Network": funcref(self, "check_socket_action"),
 }
 var check_action;
 
@@ -77,24 +81,22 @@ func _physics_process(delta):
 		input_form(key);
 	transform();
 	if hit_points <= 0:
+		get_parent().restart("Player " + str(3 - my_index) + " won!", 3 - my_index);
 		queue_free();
 
 func check_socket_action(key):
-	pass
+	return latest_action == key;
 
 func input_form(key):
 	if not confused and check_action.call_func(key):
+		latest_action = null;
 		what_am_i = key_to_what[key];
 		confused = true;
 		$TransformTimer.start();
-		$Canvas.modulate = Color(1, 1, 1, 0.3);
-		$Canvas/Confusion.visible = true;
+		$PlayerAnimation.confuse();
 
 func transform():
-	$Canvas/Rock.visible = false;
-	$Canvas/Paper.visible = false;
-	$Canvas/Scissor.visible = false;
-	get_node("Canvas/"+what_am_i).visible = true;
+	$PlayerAnimation.transform(what_am_i)
 
 func compare_battle(what1, what2):
 	var what_to_num = {
@@ -114,13 +116,13 @@ func compare_battle(what1, what2):
 
 func get_direction(key):
 	if check_action.call_func(key) and direction != -key_to_vector[key]:
+		latest_action = null;
 		return key_to_vector[key];
 	return direction;
 
 func _on_TransformTimer_timeout():
 	confused = false;
-	$Canvas.modulate = Color(1, 1, 1, 1);
-	$Canvas/Confusion.visible = false;
+	$PlayerAnimation.unconfuse();
 
 func _on_LittleMeTimer_timeout():
 	if not confused:
@@ -137,3 +139,6 @@ func _on_Player_area_entered(area):
 		elif battle_result == -1:
 			hit_points -= 1;
 			area.queue_free();
+
+remote func set_action(action):
+	latest_action = action
