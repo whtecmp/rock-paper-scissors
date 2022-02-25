@@ -29,7 +29,7 @@ position = Vector2( 526.468, 177.962 )
 scale = Vector2( 10, 1 )
 
 [node name="Block" parent="Blocks" instance=ExtResource( 4 )]
-position = Vector2( 22.1266, 170.58 )
+position = Vector2( 22.3266, 138.58 )
 scale = Vector2( 0.1, 10 )
 
 [node name="Block2" parent="Blocks" instance=ExtResource( 4 )]
@@ -39,7 +39,21 @@ position = Vector2( -32.4, 398 )
 position = Vector2( 29.4, -157 )
 
 [node name="Block4" parent="Blocks" instance=ExtResource( 4 )]
-position = Vector2( 0, 0 )
+position = Vector2( 0, -32 )
+
+[node name="Block5" parent="Blocks" instance=ExtResource( 4 )]
+position = Vector2( -32.4, -192 )
+
+[node name="Block6" parent="Blocks" instance=ExtResource( 4 )]
+position = Vector2( 29.4, 435 )
+
+[node name="Block7" parent="Blocks" instance=ExtResource( 4 )]
+position = Vector2( 51.3, 398 )
+scale = Vector2( 0.1, 1 )
+
+[node name="Block8" parent="Blocks" instance=ExtResource( 4 )]
+position = Vector2( -54.3, -157 )
+scale = Vector2( 0.1, 1 )
 
 [connection signal="host_server" from="MainMenue" to="." method="_on_MainMenue_host_server"]
 [connection signal="local_match" from="MainMenue" to="." method="_on_MainMenue_local_match"]
