@@ -23,16 +23,19 @@ func add_player(control_scheme, position, layer_index):
 	return player;
 
 func _on_MainMenue_local_match():
+	$Blocks.visible = true;
 	add_player("Keyboard", Vector2(100, 100), 2);
 	add_player("Gamepad", Vector2(300, 300), 36);
 
 func _on_MainMenue_host_server():
+	$Blocks.visible = true;
 	networking = Networking.instance();
 	add_child(networking);
 	networking.start_server();
 	networking.connect("start_server_game", self, "_on_Server_start_server_game")
  
 func _on_MainMenue_quick_match():
+	$Blocks.visible = true;
 	networking = Networking.instance();
 	add_child(networking);
 	networking.connect_to_server()
