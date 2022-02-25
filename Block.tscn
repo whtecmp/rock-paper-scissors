@@ -5,6 +5,7 @@ extents = Vector2( 20.0858, 20.0125 )
 
 [node name="Block" type="StaticBody2D"]
 position = Vector2( 29.7337, 92.5421 )
+collision_layer = 3
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_left = -19.5997
