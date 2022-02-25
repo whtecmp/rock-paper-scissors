@@ -2,6 +2,7 @@ extends Node2D
 
 export var control_scheme = "Keyboard";
 var networking;
+var confused = false;
 
 var control_scheme_to_key_to_action = {
 	"Keyboard": {
@@ -35,3 +36,7 @@ func _physics_process(delta):
 			networking.rpc_id(1, "set_action", key_to_action[key])
 			return
 	$PlayerAnimation.transform(what_am_i);
+	if confused:
+		$PlayerAnimation.confuse();
+	else:
+		$PlayerAnimation.unconfuse();

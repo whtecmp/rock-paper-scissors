@@ -21,7 +21,8 @@ func _physics_process(delta):
 		for id in client_ids:
 			name_to_update[generate_name(id)] = {
 				"position": id_to_player[id].position,
-				"what_am_i": id_to_player[id].what_am_i
+				"what_am_i": id_to_player[id].what_am_i,
+				"confused": id_to_player[id].confused
 			};
 		var main = get_parent();
 		var little_mes_info = [];
@@ -78,6 +79,7 @@ remote func update_me(name_to_update, little_mes_info):
 		var update = name_to_update[name];
 		node.position = update["position"];
 		node.what_am_i = update["what_am_i"];
+		node.confused = update["confused"];
 	var main = get_parent();
 	for child in main.get_children():
 		if "LittleMe" in child.get_name():
